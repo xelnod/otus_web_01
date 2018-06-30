@@ -1,7 +1,11 @@
 import os
 import ast
+import logging
 
 from utils import flatten_list, remove_magic, is_verb
+
+
+logger = logging.getLogger(str(__name__))
 
 
 def get_py_filenames_from_path(_path):
@@ -11,11 +15,11 @@ def get_py_filenames_from_path(_path):
     return filenames
 
 
-def get_trees(_path, with_filenames=False, with_file_content=False):
-    print(_path)
+def get_trees(_path):
+    logger.info(_path)
     filenames = get_py_filenames_from_path(_path)
     trees = []
-    print('total %s files' % len(filenames))
+    logger.info(f'total {len(filenames)} files')
     for filename in filenames:
         with open(filename, 'r', encoding='utf-8') as attempt_handler:
             main_file_content = attempt_handler.read()
@@ -24,14 +28,8 @@ def get_trees(_path, with_filenames=False, with_file_content=False):
         except SyntaxError as e:
             print(e)
             tree = None
-        if with_filenames:
-            if with_file_content:
-                trees.append((filename, main_file_content, tree))
-            else:
-                trees.append((filename, tree))
-        else:
-            trees.append(tree)
-    print('%s trees generated' % len(trees))
+        trees.append(tree)
+    logger.info(f'{len(trees)} trees generated')
     return [t for t in trees if t]
 
 
