@@ -15,5 +15,5 @@ def is_verb(_word):
     return pos_info[0][1] in VERB_TAGS
 
 
-def remove_magic(names_list):
+def remove_magic_names(names_list):
     return [name for name in names_list if not(name.startswith('__') and name.endswith('__'))]

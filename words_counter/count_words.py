@@ -5,7 +5,7 @@ import sys
 import argparse
 
 from path_tools import extract_function_names_from_path, get_verbs_from_function_name
-from utils import flatten_list, remove_magic
+from utils import flatten_list, remove_magic_names
 
 DEFAULT_TOP_SIZE = 200
 
@@ -28,7 +28,7 @@ def get_top_verbs_in_path(path, top_size=10):
 
 def get_top_functions_names_in_path(path, top_size=10):
     function_names = extract_function_names_from_path(path)
-    function_names_nonmagic = remove_magic(function_names)
+    function_names_nonmagic = remove_magic_names(function_names)
     return collections.Counter(function_names_nonmagic).most_common(top_size)
 
 
